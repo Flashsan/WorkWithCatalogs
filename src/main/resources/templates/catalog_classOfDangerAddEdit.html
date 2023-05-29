@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:actionth="http://www.w3.org/1999/xhtml">
+
+<div th:replace="fragments :: header"></div>
+
+<body>
+<div class="container text-center">
+    <div th:if="${catalog_classOfDangerDto.idClassOfDanger== null}">
+        <h1>Create new class of danger</h1>
+    </div>
+
+    <div th:unless="${catalog_classOfDangerDto.idClassOfDanger== null}">
+        <h1>Edit class of danger</h1>
+    </div>
+
+    <form action="#" th:action="@{/catalogClassOfDanger/save}" method="POST">
+        <input type="hidden" th:field="*{catalog_classOfDangerDto.idClassOfDanger}"/>
+
+        <div class="m-3">
+            <div class="form-group row">
+                <label class="col-form-label col-sm-4">Title  Name:</label>
+                <div class="col-sm-8">
+                    <input type="text"
+                           class="form-control"
+                           th:field="*{catalog_classOfDangerDto.titleClassOfDanger}"
+                           name="catalog_classOfDangerDto.titleClassOfDanger"
+                           placeholder="For example:1" required>
+                    <div class="alert alert-warning"
+                         th:if="${#fields.hasErrors('catalog_classOfDangerDto.titleClassOfDanger')}"
+                         th:errors="*{catalog_classOfDangerDto.titleClassOfDanger}">Class of danger error
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center p-3">
+                <button type="submit" class="btn btn-primary">Save</button>
+                <a href="/catalogClassOfDanger/page/1?sortField=titleClassOfDanger&sortDir=asc" class="btn btn-danger">Back</a>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div th:replace="~{fragments :: footer}"/>
+</body>
+</html>

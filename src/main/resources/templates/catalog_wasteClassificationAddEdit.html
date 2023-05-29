@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:actionth="http://www.w3.org/1999/xhtml">
+
+<div th:replace="~{fragments :: header}"></div>
+
+<body>
+
+<div class="container text-center">
+    <div th:if="${catalog_wasteClassificationDto.idWasteClassification == null}">
+        <h1>Create new waste classification</h1>
+    </div>
+
+    <div th:unless="${catalog_wasteClassificationDto.idWasteClassification == null}">
+        <h1>Edit waste classification</h1>
+    </div>
+
+    <form action="#" th:action="@{/catalogWasteClassification/save}" method="POST">
+        <input type="hidden" th:field="*{catalog_wasteClassificationDto.idWasteClassification}"/>
+
+        <div class="m-3">
+            <div class="form-group row">
+                <label class="col-form-label col-sm-4">Kod waste classification:</label>
+                <div class="col-sm-8">
+                    <input type="text"
+                           class="form-control"
+                           th:field="*{catalog_wasteClassificationDto.kodWasteClassification}"
+                           name="catalog_wasteClassificationDto.kodWasteClassification"
+                           placeholder="For example:147356" required>
+                    <div class="alert alert-warning"
+                         th:if="${#fields.hasErrors('catalog_wasteClassificationDto.kodWasteClassification')}"
+                         th:errors="*{catalog_wasteClassificationDto.kodWasteClassification}">Waste classification error
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-form-label col-sm-4">Title Name:</label>
+                <div class="col-sm-8">
+                    <input type="text"
+                           class="form-control"
+                           th:field="*{catalog_wasteClassificationDto.titleWasteClassification}"
+                           name="catalog_wasteClassificationDto.titleWasteClassification"
+                           placeholder="For example:Обработка участка" required>
+                    <div class="alert alert-warning"
+                         th:if="${#fields.hasErrors('catalog_wasteClassificationDto.titleWasteClassification')}"
+                         th:errors="*{catalog_wasteClassificationDto.titleWasteClassification}">Title waste classification error
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-form-label col-sm-4">Degree of danger:</label>
+                <div class="col-sm-6">
+                    <select name="idCatalogDegreeOfDanger" class="form-control" required>
+                        <th:block th:each="catalog_degreeOfDangerDto:${catalog_degreeOfDangerDtoList}">
+                            <option th:text="${catalog_degreeOfDangerDto.titleDegreeOfDanger}"
+                                    th:value="${catalog_degreeOfDangerDto.idDegreeOfDanger}"/>
+                        </th:block>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-form-label col-sm-4">Class of danger:</label>
+                <div class="col-sm-6">
+                    <select name="idCatalogClassOfDanger" class="form-control" required>
+                        <th:block th:each="catalog_classOfDangerDto:${catalog_classOfDangerDtoList}">
+                            <option th:text="${catalog_classOfDangerDto.titleClassOfDanger}"
+                                    th:value="${catalog_classOfDangerDto.idClassOfDanger}"/>
+                        </th:block>
+                    </select>
+                </div>
+            </div>
+
+
+            <div class="form-group row">
+                <label class="col-form-label col-sm-4">Kind of activity:</label>
+                <div class="col-sm-6">
+                    <select name="idCatalogKindOfActivity" class="form-control" required>
+                        <th:block th:each="catalog_kindOfActivityDto:${catalog_kindOfActivityDtoList}">
+                            <option th:text="${catalog_kindOfActivityDto.titleKindOfActivity}"
+                                    th:value="${catalog_kindOfActivityDto.idKindOfDanger}"/>
+                        </th:block>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-form-label col-sm-4">Education standard:</label>
+                <div class="col-sm-8">
+                    <input type="text"
+                           class="form-control"
+                           th:field="*{catalog_wasteClassificationDto.educationStandardWasteClassification}"
+                           name="catalog_wasteClassificationDto.educationStandardWasteClassification"
+                           placeholder="For example:Разводить в соотношении 1:3" required>
+                    <div class="alert alert-warning"
+                         th:if="${#fields.hasErrors('catalog_wasteClassificationDto.educationStandardWasteClassification')}"
+                         th:errors="*{catalog_wasteClassificationDto.educationStandardWasteClassification}">education standard error
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center p-3">
+                <button type="submit" class="btn btn-primary">Save</button>
+                <a href="/catalogWasteClassification/page/1?sortField=titleWasteClassification&sortDirection=asc" class="btn btn-danger">Back</a>
+            </div>
+
+        </div>
+    </form>
+</div>
+<div th:replace="~{fragments :: footer}"/>
+</body>
+</html>

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<div th:replace="~{fragments :: header}"></div>
+
+<body>
+
+<div th:replace="~{fragments :: menu}"/>
+
+<div class="container">
+    <h1>Catalog waste classification</h1>
+
+    <button type="button" class="btn btn-success"
+            onclick='location.href="/catalogWasteClassification/save"'>
+        Add new waste classification
+    </button>
+
+    <table class="table table-striped table-responsive-md">
+        <thead>
+        <tr>
+            <th scope="col"><a
+                    th:href="@{'/catalogWasteClassification/page/' + ${currentPage} + '?sortField=kodWasteClassification&sortDirection=' + ${reverseSortDir}}">
+                Kod waste classification</a></th>
+
+            <th scope="col">
+                <a th:href="@{'/catalogWasteClassification/page/' + ${currentPage} + '?sortField=titleWasteClassification&sortDirection=' + ${reverseSortDir}}">
+                    Title kind of activity</a></th>
+
+            <th scope="col">
+                <a th:href="@{'/catalogWasteClassification/page/' + ${currentPage} + '?sortField=linkOnIdCatalogDegreeOfDanger&sortDirection=' + ${reverseSortDir}}">
+                    Degree of danger</a></th>
+
+            <th scope="col"><a
+                    th:href="@{'/catalogWasteClassification/page/' + ${currentPage} + '?sortField=linkOnIdCatalogClassOfDanger&sortDirection=' + ${reverseSortDir}}">
+                Class of danger</a></th>
+
+            <th scope="col"><a
+                    th:href="@{'/catalogWasteClassification/page/' + ${currentPage} + '?sortField=linkOnIdCatalogKindOfActivity&sortDirection=' + ${reverseSortDir}}">
+                Kind of activity</a></th>
+
+            <th scope="col"><a
+                    th:href="@{'/catalogWasteClassification/page/' + ${currentPage} + '?sortField=educationStandardCatalogWasteClassification&sortDirection=' + ${reverseSortDir}}">
+                Education standard catalog waste classification</a></th>
+
+            <th scope="col">Actions</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="catalog_wasteClassificationDto :${catalog_wasteClassificationDtoList}">
+            <td th:text="${catalog_wasteClassificationDto.kodWasteClassification}">Kod waste</td>
+            <td th:text="${catalog_wasteClassificationDto.titleWasteClassification}">Title waste classification</td>
+            <td th:text="${catalog_wasteClassificationDto.getCatalog_degreeOfDanger.titleDegreeOfDanger}">Degree of danger</td>
+            <td th:text="${catalog_wasteClassificationDto.getCatalog_classOfDanger.titleClassOfDanger}">Class of danger</td>
+            <td th:text="${catalog_wasteClassificationDto.getCatalog_kindOfActivity.titleKindOfActivity}">Kind of activity</td>
+            <td th:text="${catalog_wasteClassificationDto.educationStandardCatalogWasteClassification}">Education standard</td>
+            <td>&nbsp;
+                <a th:href="@{/catalogWasteClassification/edit/{id}(id=${catalog_wasteClassificationDto.idWasteClassification})}"
+                   class="btn btn-primary eBtn">Edit</a>
+                <a th:href="@{/catalogWasteClassification/deleteById/{id}(id=${catalog_wasteClassificationDto.idWasteClassification})}"
+                   class="btn btn-danger delBtn">Delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div th:if="${totalPages > 1}">
+        <div class="row col-sm-10">
+            <div class="col-sm-2">
+                Total Rows: [[${totalItems}]]
+            </div>
+            <div class="col-sm-1">
+                    <span th:each="i: ${#numbers.sequence(1, totalPages)}">
+      <a th:if="${currentPage != i}"
+         th:href="@{'/catalogWasteClassification/page/' + ${i}+ '?sortField=' + ${sortField} + '&sortDirection=' + ${sortDirsortDirection}}">[[${i}]]</a>
+      <span th:unless="${currentPage != i}">[[${i}]]</span>  &nbsp; &nbsp;
+                    </span>
+            </div>
+            <div class="col-sm-1">
+                <a th:if="${currentPage < totalPages}"
+                   th:href="@{'/catalogWasteClassification/page/' + ${currentPage + 1}+ '?sortField=' + ${sortField} + '&sortDirection=' + ${sortDir}}">Next</a>
+                <span th:unless="${currentPage < totalPages}">Next</span>
+            </div>
+
+            <div class="col-sm-1">
+                <a th:if="${currentPage < totalPages}"
+                   th:href="@{'sortDirection/page/' + ${totalPages}+ '?sortField=' + ${sortField} + '&sortDirection=' + ${sortDir}}">Last</a>
+                <span th:unless="${currentPage < totalPages}">Last</span>
+            </div>
+        </div>
+    </div>
+
+
+    <hr/>
+    <!--         #Modal for removing waste classification -->
+    <div class="modal fade"
+         id="removeModalCenter"
+         tabindex="-1" role="dialog"
+         aria-labelledby="removeModalCenterTitle"
+         aria-hidden="true">
+
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="removeModalCenterTitle">Attention!!!</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+                    <p class="alert alert-danger">
+                        Are You sure You want to delete this waste classification?
+                    </p>
+                </div>
+
+                <div class="modal-footer">
+                    <a href="" class="btn btn-danger" id="delRef">Delete</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--     #End modal form for removing waste classification-->
+
+</div>
+<div th:replace="~{fragments :: footer}"/>
+
+</body>
+</html>
