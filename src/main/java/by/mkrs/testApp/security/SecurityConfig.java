@@ -22,17 +22,6 @@ public class SecurityConfig  {
     return new BCryptPasswordEncoder();
 }
 
-//@Bean
-//    public UserDetailsService userDetailsService(PasswordEncoder passwordEncoder){
-//    List<UserDetails> userList = new ArrayList<>();
-//    userList.add(new User(
-//            "buzz", passwordEncoder().encode("password"),
-//            Arrays.asList(new SimpleGrantedAuthority("ROLE_USER"))));
-//    userList.add(new User("woody", passwordEncoder().encode("password"),
-//            Arrays.asList(new SimpleGrantedAuthority("ROLE_USER"))));
-//    return new InMemoryUserDetailsManager(userList);
-//}
-
     @Bean
     public UserDetailsService users() {
         UserDetails buzz = User.builder()
