@@ -3,15 +3,14 @@ package by.mkrs.testApp.entity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import lombok.*;
-import org.springframework.data.annotation.Id;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.List;
 
 
 @Entity
@@ -24,7 +23,8 @@ import java.util.List;
 //@Setter
 public class User implements UserDetails {
 
-    @jakarta.persistence.Id
+    private static final long serialVersionUid = 1L;
+
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
